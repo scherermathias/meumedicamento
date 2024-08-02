@@ -1,11 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meumedicamento/scr/shared/services/database/domain/enums/documents_path_enum.dart';
-import 'package:meumedicamento/scr/shared/services/database/services/i_database_service.dart';
+import '../domain/enums/documents_path_enum.dart';
+import 'i_database_service.dart';
 
 class DatabaseServiceImpl implements IDatabaseService {
   final FirebaseFirestore _firestore;
 
   DatabaseServiceImpl(this._firestore);
+
+  @override
+  Future<List<Map<String, dynamic>>> getDocuments({
+    required DocumentsPathEnum documentsPath,
+  }) async {
+    try {
+      final result = await _firestore.collection(documentsPath.path).get();
+      return result.docs.map((e) => e.data()).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   @override
   Future<DocumentReference<Map<String, dynamic>>> createDocument({

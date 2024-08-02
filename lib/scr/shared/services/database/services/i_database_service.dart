@@ -3,6 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../domain/enums/documents_path_enum.dart';
 
 abstract class IDatabaseService {
+  Future<List<Map<String, dynamic>>> getDocuments({
+    required DocumentsPathEnum documentsPath,
+  });
+
   Future<Map<String, dynamic>?> getDocumentById({
     required DocumentsPathEnum documentsPath,
     required String id,
