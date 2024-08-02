@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import 'shared/ui/theme/theme.dart';
+import 'shared/ui/widgets/keyboard_dismiss_on_tap.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -32,7 +33,9 @@ class App extends StatelessWidget {
           const Breakpoint(start: 801, end: 1920, name: DESKTOP),
           const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
-        child: child!,
+        child: KeyboardDismissOnTap(
+          child: child!,
+        ),
       ),
     );
   }
