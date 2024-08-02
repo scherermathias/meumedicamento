@@ -27,4 +27,38 @@ class MedicationCubit extends Cubit<MedicationState> {
       emit(MedicationError(message: GenericError(message: e.toString())));
     }
   }
+
+  Future<void> deleteMedication({required String id}) async {
+    emit(MedicationLoading());
+    try {
+      await databaseService.deleteDocument(documentsPath: DocumentsPathEnum.medication, id: id);
+      emit(MedicationDeleted());
+    } catch (e) {
+      emit(MedicationError(message: GenericError(message: e.toString())));
+    }
+  }
+
+  Future<void> createMedication({required MedicationEntity medication}) async {
+    emit(MedicationLoading());
+    try {
+      await databaseService
+          .createDocument(
+        documentsPath: DocumentsPathEnum.medication,
+        data: medication.toMap(),
+      )
+          .then((result) async {
+        medication = medication.copyWith(id: result.id);
+
+        await databaseService.updateDocument(
+          documentsPath: DocumentsPathEnum.medication,
+          data: medication.toMap(),
+          id: result.id,
+        );
+
+        emit(MedicationCreated());
+      });
+    } catch (e) {
+      emit(MedicationError(message: GenericError(message: e.toString())));
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../data/models/models.dart';
 import '../../domain/enum/enum.dart';
 import '../cubits/cubits.dart';
 
@@ -12,52 +13,40 @@ class MedicationStore extends ChangeNotifier {
   final nameController = TextEditingController();
   final dosageController = TextEditingController();
 
-  Duration? _duration;
-  Duration? get duration => _duration;
-  set duration(Duration? value) {
-    _duration = value;
+
+  DateTime? _dateTime;
+  DateTime? get dateTime => _dateTime;
+  set dateTime(DateTime? value) {
+    _dateTime = value;
     notifyListeners();
   }
 
-  DateTime? _startDate;
-  DateTime? get startDate => _startDate;
-  set startDate(DateTime? value) {
-    _startDate = value;
-    notifyListeners();
+
+  bool _validate() {
+    if (formKey.currentState?.validate() != true) return false;
+    if (_dateTime == null) return false;
+
+    return true;
   }
 
-  DateTime? _endDate;
-  DateTime? get endDate => _endDate;
-  set endDate(DateTime? value) {
-    _endDate = value;
-    notifyListeners();
+  Future<void> save() async {
+    final isValid = _validate();
+
+    if (!isValid) return;
+
+    final input = MedicationEntity(
+      name: nameController.text,
+      dosage: dosageController.text,
+      dateTime: _dateTime!,
+      status: MedicationStatusEnum.active,
+    );
+
+    await cubit.createMedication(medication: input);
   }
 
-  MedicationStatusEnum? _status;
-  MedicationStatusEnum? get status => _status;
-  set status(MedicationStatusEnum? value) {
-    _status = value;
-    notifyListeners();
+  void clear() {
+    nameController.clear();
+    dosageController.clear();
+    dateTime = null;
   }
-
-  FrequencyEnum? _frequency;
-  FrequencyEnum? get frequency => _frequency;
-  set frequency(FrequencyEnum? value) {
-    _frequency = value;
-    notifyListeners();
-  }
-
-  // void save() {
-  //   if (formKey.currentState!.validate()) {
-  //     cubit.save(
-  //       name: nameController.text,
-  //       dosage: dosageController.text,
-  //       duration: duration!,
-  //       startDate: startDate!,
-  //       endDate: endDate,
-  //       status: status!,
-  //       frequency: frequency!,
-  //     );
-  //   }
-  // }
 }
