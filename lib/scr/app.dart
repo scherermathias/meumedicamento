@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'shared/ui/theme/theme.dart';
+
 class App extends StatelessWidget {
   const App({
     super.key,
@@ -13,6 +15,7 @@ class App extends StatelessWidget {
       key: key,
       title: 'Meus Medicamentos',
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.light,
       locale: const Locale('pt', 'BR'),
       supportedLocales: const [
         Locale('pt', 'BR'),
