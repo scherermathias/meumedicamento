@@ -4,24 +4,18 @@ import '../../domain/enum/enum.dart';
 import '../../domain/models/models.dart';
 
 class MedicationEntity extends Equatable {
-  final int? id;
+  final String? id;
   final String name;
   final String dosage;
-  final Duration duration;
-  final DateTime startDate;
-  final DateTime? endDate;
+  final DateTime dateTime;
   final MedicationStatusEnum status;
-  final FrequencyEnum frequency;
 
   const MedicationEntity({
     this.id,
     required this.name,
     required this.dosage,
-    required this.duration,
-    required this.startDate,
-    this.endDate,
+    required this.dateTime,
     required this.status,
-    required this.frequency,
   });
 
   @override
@@ -29,11 +23,8 @@ class MedicationEntity extends Equatable {
         id,
         name,
         dosage,
-        duration,
-        startDate,
-        endDate,
+        dateTime,
         status,
-        frequency,
       ];
 
   Map<String, dynamic> toMap() {
@@ -41,24 +32,18 @@ class MedicationEntity extends Equatable {
       'id': id,
       'name': name,
       'dosage': dosage,
-      'duration': duration,
-      'startDate': startDate.toIso8601String(),
-      'endDate': endDate?.toIso8601String(),
+      'dateTime': dateTime.toIso8601String(),
       'status': status.value,
-      'frequency': frequency.value,
     };
   }
 
   factory MedicationEntity.fromMap(Map<String, dynamic> map) {
     return MedicationEntity(
-      id: map['id'] as int,
+      id: map['id'] as String,
       name: map['name'] as String,
       dosage: map['dosage'] as String,
-      duration: map['duration'] as Duration,
-      startDate: DateTime.parse(map['startDate'] as String),
-      endDate: map['endDate'] != null ? DateTime.parse(map['endDate'] as String) : null,
+      dateTime: DateTime.parse(map['dateTime'] as String),
       status: MedicationStatusEnum.fromInt(map['status'] as int),
-      frequency: FrequencyEnum.fromInt(map['frequency'] as int),
     );
   }
 
@@ -67,11 +52,24 @@ class MedicationEntity extends Equatable {
       id: model.id,
       name: model.name,
       dosage: model.dosage,
-      duration: model.duration,
-      startDate: model.startDate,
-      endDate: model.endDate,
+      dateTime: model.dateTime,
       status: model.status,
-      frequency: model.frequency,
+    );
+  }
+
+  MedicationEntity copyWith({
+    String? id,
+    String? name,
+    String? dosage,
+    DateTime? dateTime,
+    MedicationStatusEnum? status,
+  }) {
+    return MedicationEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      dosage: dosage ?? this.dosage,
+      dateTime: dateTime ?? this.dateTime,
+      status: status ?? this.status,
     );
   }
 }

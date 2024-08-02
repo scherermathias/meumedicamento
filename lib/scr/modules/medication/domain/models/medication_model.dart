@@ -5,24 +5,18 @@ import 'package:equatable/equatable.dart';
 import '../enum/enum.dart';
 
 class MedicationModel extends Equatable {
-  final int id;
+  final String id;
   final String name;
   final String dosage;
-  final Duration duration;
-  final DateTime startDate;
-  final DateTime? endDate;
+  final DateTime dateTime;
   final MedicationStatusEnum status;
-  final FrequencyEnum frequency;
 
   const MedicationModel({
     required this.id,
     required this.name,
     required this.dosage,
-    required this.duration,
-    required this.startDate,
-    this.endDate,
+    required this.dateTime,
     required this.status,
-    required this.frequency,
   });
 
   @override
@@ -30,11 +24,8 @@ class MedicationModel extends Equatable {
         id,
         name,
         dosage,
-        duration,
-        startDate,
-        endDate,
         status,
-        frequency,
+        dateTime,
       ];
 
   Map<String, dynamic> toMap() {
@@ -42,24 +33,18 @@ class MedicationModel extends Equatable {
       'id': id,
       'name': name,
       'dosage': dosage,
-      'duration': duration,
-      'startDate': startDate.toIso8601String(),
-      'endDate': endDate?.toIso8601String(),
+      'dateTime': dateTime.toIso8601String(),
       'status': status.value,
-      'frequency': frequency.value,
     };
   }
 
   factory MedicationModel.fromMap(Map<String, dynamic> map) {
     return MedicationModel(
-        id: map['id'] as int,
+        id: map['id'] as String,
         name: map['name'] as String,
         dosage: map['dosage'] as String,
-        duration: map['duration'] as Duration,
-        startDate: DateTime.parse(map['startDate'] as String),
-        endDate: map['endDate'] != null ? DateTime.parse(map['endDate'] as String) : null,
-        status: MedicationStatusEnum.fromInt(map['status'] as int),
-        frequency: FrequencyEnum.fromInt(map['frequency'] as int));
+        dateTime: DateTime.parse(map['dateTime'] as String),
+        status: MedicationStatusEnum.fromInt(map['status'] as int));
   }
 
   String toJson() => json.encode(toMap());
