@@ -16,10 +16,10 @@ void main() {
       id: 1,
       name: 'Test Medication',
       dosage: '50mg',
-      duration: '30 days',
+      duration: const Duration(hours: 6),
       startDate: DateTime.parse('2024-01-01'),
       endDate: DateTime.parse('2024-01-31'),
-      status: 'Active',
+      status: MedicationStatusEnum.active,
       frequency: FrequencyEnum.twiceADay,
     );
   });
