@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'shared/router/routes.dart';
 import 'shared/ui/theme/theme.dart';
 import 'shared/ui/widgets/keyboard_dismiss_on_tap.dart';
 
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       key: key,
+      routerConfig: Routes.config,
       title: 'Meus Medicamentos',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
