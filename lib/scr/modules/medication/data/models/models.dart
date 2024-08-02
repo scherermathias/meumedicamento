@@ -1,1 +1,1 @@
-export './medication_entity.dart';
+export 'medication_entity.dart';

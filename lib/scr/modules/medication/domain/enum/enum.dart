@@ -1,1 +1,1 @@
-export './frequency_enum.dart';
+export 'frequency_enum.dart';
