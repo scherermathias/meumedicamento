@@ -1,12 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import 'scr/app.dart';
+import 'scr/shared/dependency_injection/injector.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  /// Register dependencies's
+  Injector.registerDependencies();
+  await Injector.allReady();
 
   /// Configure Intl.
   Intl.defaultLocale = 'pt_BR';
