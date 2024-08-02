@@ -1,0 +1,1 @@
+const kDatabaseInstanceName = 'database_service';
