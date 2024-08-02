@@ -13,7 +13,7 @@ void main() {
   setUp(() {
     mockMedicationService = MockMedicationService();
     testMedication = MedicationEntity(
-      id: 1,
+      id: 'abc',
       name: 'Test Medication',
       dosage: '50mg',
       dateTime: DateTime.parse('2024-01-01'),
