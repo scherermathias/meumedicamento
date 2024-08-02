@@ -8,10 +8,10 @@ class MedicationModel extends Equatable {
   final int id;
   final String name;
   final String dosage;
-  final String duration;
+  final Duration duration;
   final DateTime startDate;
   final DateTime? endDate;
-  final String status;
+  final MedicationStatusEnum status;
   final FrequencyEnum frequency;
 
   const MedicationModel({
@@ -45,7 +45,7 @@ class MedicationModel extends Equatable {
       'duration': duration,
       'startDate': startDate.toIso8601String(),
       'endDate': endDate?.toIso8601String(),
-      'status': status,
+      'status': status.value,
       'frequency': frequency.value,
     };
   }
@@ -55,10 +55,10 @@ class MedicationModel extends Equatable {
         id: map['id'] as int,
         name: map['name'] as String,
         dosage: map['dosage'] as String,
-        duration: map['duration'] as String,
+        duration: map['duration'] as Duration,
         startDate: DateTime.parse(map['startDate'] as String),
         endDate: map['endDate'] != null ? DateTime.parse(map['endDate'] as String) : null,
-        status: map['status'] as String,
+        status: MedicationStatusEnum.fromInt(map['status'] as int),
         frequency: FrequencyEnum.fromInt(map['frequency'] as int));
   }
 
