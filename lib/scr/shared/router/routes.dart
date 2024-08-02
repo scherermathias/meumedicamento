@@ -8,7 +8,6 @@ import '../../modules/medication/ui/cubits/cubits.dart';
 import '../../modules/medication/ui/stores/stores.dart';
 import '../../modules/medication/ui/views/views.dart';
 import '../dependency_injection/injector.dart';
-import '../services/database/services/i_database_service.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'routerKey');
 
@@ -29,8 +28,7 @@ abstract class Routes {
           builder: (context, state) => MultiProvider(
             providers: [
               BlocProvider(
-                create: (context) =>
-                    MedicationCubit(databaseService: Injector.resolve<IDatabaseService>()),
+                create: (context) => MedicationCubit(databaseService: Injector.resolve()),
               ),
               ChangeNotifierProvider(
                 create: (context) => MedicationStore(
