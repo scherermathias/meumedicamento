@@ -19,7 +19,7 @@ abstract class Routes {
     debugLogDiagnostics: kDebugMode,
   );
 
-  static String get medication => '/medication';
+  static String get medication => '/list_medication';
 
   static List<RouteBase> get _routes => [
         GoRoute(
