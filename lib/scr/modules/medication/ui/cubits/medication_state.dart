@@ -33,3 +33,5 @@ class MedicationError extends MedicationState {
   @override
   List<Object?> get props => [message];
 }
+
+class MedicationCreated extends MedicationState {}
