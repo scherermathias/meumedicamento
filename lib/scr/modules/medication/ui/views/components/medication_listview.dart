@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../../shared/extensions/extensions.dart';
@@ -26,7 +25,10 @@ class MedicationList extends StatelessWidget {
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListTile(
-            leading: const Icon(Icons.medication_sharp),
+            leading: Image.asset(
+              'assets/images/icons/pills.png',
+              width: 40,
+            ),
             title: Text('Nome: ${medication.name}'),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
