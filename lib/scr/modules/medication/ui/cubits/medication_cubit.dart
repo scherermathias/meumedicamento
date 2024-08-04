@@ -1,26 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../shared/errors/errors.dart';
-import '../../../../shared/services/database/domain/enums/documents_path_enum.dart';
-import '../../../../shared/services/database/services/i_database_service.dart';
-import '../../data/models/medication_entity.dart';
+import '../../data/models/models.dart';
+import '../../domain/services/i_medication_service.dart';
 import 'medication_state.dart';
 
 class MedicationCubit extends Cubit<MedicationState> {
-  final IDatabaseService databaseService;
+  final IMedicationService _medicationService;
 
-  MedicationCubit({required this.databaseService}) : super(MedicationInitial());
+  MedicationCubit({required IMedicationService medicationService})
+      : _medicationService = medicationService,
+        super(MedicationInitial());
 
   Future<void> getMedications() async {
     emit(MedicationLoading());
     try {
-      final docsResponse =
-          await databaseService.getDocuments(documentsPath: DocumentsPathEnum.medication);
-      if (docsResponse.isEmpty) {
+      final medications = await _medicationService.list();
+      if (medications.isEmpty) {
         emit(MedicationEmpty());
       } else {
-        final medications =
-            docsResponse.map((medication) => MedicationEntity.fromMap(medication)).toList();
         emit(MedicationLoaded(medications: medications));
       }
     } catch (e) {
@@ -31,7 +29,7 @@ class MedicationCubit extends Cubit<MedicationState> {
   Future<void> deleteMedication({required String id}) async {
     emit(MedicationLoading());
     try {
-      await databaseService.deleteDocument(documentsPath: DocumentsPathEnum.medication, id: id);
+      await _medicationService.delete(id);
       emit(MedicationDeleted());
     } catch (e) {
       emit(MedicationError(message: GenericError(message: e.toString())));
@@ -41,22 +39,8 @@ class MedicationCubit extends Cubit<MedicationState> {
   Future<void> createMedication({required MedicationEntity medication}) async {
     emit(MedicationLoading());
     try {
-      await databaseService
-          .createDocument(
-        documentsPath: DocumentsPathEnum.medication,
-        data: medication.toMap(),
-      )
-          .then((result) async {
-        medication = medication.copyWith(id: result.id);
-
-        await databaseService.updateDocument(
-          documentsPath: DocumentsPathEnum.medication,
-          data: medication.toMap(),
-          id: result.id,
-        );
-
-        emit(MedicationCreated());
-      });
+      await _medicationService.create(medication);
+      emit(MedicationCreated());
     } catch (e) {
       emit(MedicationError(message: GenericError(message: e.toString())));
     }
