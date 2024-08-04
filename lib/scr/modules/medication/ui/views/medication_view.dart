@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../shared/ui/theme/colors/colors.dart';
+import '../../../../shared/ui/theme/theme.dart';
 import '../../../../shared/ui/widgets/company_logo.dart';
 import '../cubits/cubits.dart';
 import '../stores/stores.dart';
@@ -33,13 +34,45 @@ class _MedicationViewState extends State<MedicationView> {
       body: SafeArea(
         child: Column(
           children: [
-            const CompanyLogo(),
+            _buildHeader(),
             Expanded(child: _buildMedicationListView()),
           ],
         ),
       ),
     );
   }
+
+  Container _buildHeader() => Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              const Color.fromARGB(184, 174, 237, 185),
+              BrandColor.background,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [0.0, 1.0],
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const CompanyLogo(),
+            const SizedBox(height: 8),
+            Text(
+              'Meus Medicamentos',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: BrandColor.base,
+              ),
+            ),
+          ],
+        ),
+      );
 
   Widget _buildFloatingActionButton() {
     return FloatingActionButton.extended(
