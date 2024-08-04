@@ -28,7 +28,7 @@ abstract class Routes {
           builder: (context, state) => MultiProvider(
             providers: [
               BlocProvider(
-                create: (context) => MedicationCubit(databaseService: Injector.resolve()),
+                create: (context) => MedicationCubit(medicationService: Injector.resolve()),
               ),
               ChangeNotifierProvider(
                 create: (context) => MedicationStore(

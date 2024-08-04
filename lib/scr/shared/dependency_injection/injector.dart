@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../modules/medication/data/services/medication_service_impl.dart';
+import '../../modules/medication/domain/services/i_medication_service.dart';
 import '../services/database/services/database_service_impl.dart';
 import '../services/database/services/i_database_service.dart';
 
@@ -27,7 +29,9 @@ abstract class Injector {
   ///
   /// This private method registers various service implementations with GetIt.
   static void _registerServices() {
-    _getIt.registerDatabaseService();
+    _getIt
+      ..registerDatabaseService()
+      ..registerSingleton<IMedicationService>(MedicationServiceImp(resolve<IDatabaseService>()));
   }
 
   /// Register all dependencies.
