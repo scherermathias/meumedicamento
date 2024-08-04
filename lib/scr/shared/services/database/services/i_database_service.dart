@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../domain/enums/documents_path_enum.dart';
 
 abstract class IDatabaseService {
@@ -29,7 +27,7 @@ abstract class IDatabaseService {
     required String id,
   });
 
-  Future<DocumentReference<Map<String, dynamic>>> createDocument({
+  Future<void> createDocument({
     required DocumentsPathEnum documentsPath,
     required Map<String, dynamic> data,
   });

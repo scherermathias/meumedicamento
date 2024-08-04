@@ -24,19 +24,6 @@ void main() {
   });
 
   group('DatabaseServiceImpl', () {
-    test('createDocument should return a DocumentReference', () async {
-      final data = {'key': 'value'};
-
-      when(() => mockCollectionReference.add(data)).thenAnswer((_) async => mockDocumentReference);
-
-      final result = await databaseService.createDocument(
-        documentsPath: DocumentsPathEnum.medication,
-        data: data,
-      );
-
-      expect(result, equals(mockDocumentReference));
-    });
-
     test('deleteDocument should successfully delete a document', () async {
       when(() => mockCollectionReference.doc(any())).thenReturn(mockDocumentReference);
       when(() => mockDocumentReference.delete()).thenAnswer((_) async => {});

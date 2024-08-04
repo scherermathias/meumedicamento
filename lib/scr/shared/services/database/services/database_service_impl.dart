@@ -20,13 +20,13 @@ class DatabaseServiceImpl implements IDatabaseService {
   }
 
   @override
-  Future<DocumentReference<Map<String, dynamic>>> createDocument({
+  Future<void> createDocument({
     required DocumentsPathEnum documentsPath,
     required Map<String, dynamic> data,
   }) async {
     try {
-      final result = await _firestore.collection(documentsPath.path).add(data);
-      return result;
+      await _firestore.collection(documentsPath.path).doc(data['id']).set(data);
+      return;
     } catch (e) {
       rethrow;
     }
