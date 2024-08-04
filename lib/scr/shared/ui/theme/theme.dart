@@ -10,7 +10,7 @@ abstract class AppTheme {
     colorScheme: ColorScheme.fromSeed(seedColor: BrandColor.base),
     useMaterial3: true,
     fontFamily: GoogleFonts.ubuntu().fontFamily,
-    scaffoldBackgroundColor: GreyColor.white,
+    scaffoldBackgroundColor: BrandColor.background,
     switchTheme: SwitchThemeData(
       thumbColor: const WidgetStatePropertyAll(Colors.white),
       trackOutlineColor: const WidgetStatePropertyAll(
@@ -29,6 +29,13 @@ abstract class AppTheme {
       color: GreyColor.white,
       elevation: 0,
       centerTitle: false,
+    ),
+    cardTheme: CardTheme(
+      elevation: 3,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: GreyColor.white,

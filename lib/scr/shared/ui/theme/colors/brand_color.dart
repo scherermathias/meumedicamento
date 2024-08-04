@@ -23,6 +23,8 @@ abstract class BrandColor {
     BrandColor.dark = HexColor.fromHex(darkColorHex);
   }
 
+  static Color background = HexColor.fromHex('#e9f2d2');
+
   static Color light = HexColor.fromHex('#e9f2d2');
 
   static Color medium = HexColor.fromHex('#aed356');
