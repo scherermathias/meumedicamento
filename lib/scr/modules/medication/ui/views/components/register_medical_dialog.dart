@@ -149,9 +149,18 @@ class _RegisterMedicalDialogState extends State<RegisterMedicalDialog> {
 
   void _showValidationError(String message) {
     if (mounted) {
-      // Check if the widget is still mounted
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message), backgroundColor: Colors.red),
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Ops!'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
       );
     }
   }
